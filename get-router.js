@@ -6,7 +6,6 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
     const tasks = Task.getAllTasks();
-
     res.send(`<!DOCTYPE html>
     <html lang="en">
         <head>
@@ -57,38 +56,48 @@ router.get("/", (req, res) => {
                 <div class="row mb-4">
                     <div class="col">
                         <ul class="list-group lh-lg">
-                        ${tasks
-                            .map((item) => {
-                                return `<li data-id="${
-                                    item.id
-                                }" class="list-group-item d-flex bg-light">
-                            <span class="flex-grow-1 d-flex align-items-center">
-                                <label>${item.title}</label>
-                                <span class="badge ${
-                                    item.completed
-                                        ? "bg-success"
-                                        : "bg-secondary"
-                                } ms-auto me-3 user-select-none"
-                                    >${
+                            ${tasks
+                                .map((item) => {
+                                    return `<li class="list-group-item d-flex bg-light" data-id="${
+                                        item.id
+                                    }">
+                                    <span class="flex-grow-1 d-flex align-items-center">
+                                        <label>${item.title}</label>
+                                        <span class="badge 
+                                        ${
+                                            item.completed
+                                                ? "bg-success"
+                                                : "bg-secondary"
+                                        }
+                                        ms-auto me-3 user-select-none"
+                                            >
+                                            ${
+                                                item.completed
+                                                    ? "Completed"
+                                                    : "In progress"
+                                            }
+                                            </span
+                                        >
+                                    </span>
+                                    <button class="btn btn-sm 
+                                    ${
                                         item.completed
-                                            ? "completed"
-                                            : "in progress"
-                                    }</span
-                                >
-                            </span>
-                            <button class="btn btn-sm ${
-                                item.completed ? "btn-secondary" : "btn-success"
-                            } me-3 toggle-btn">Toggle</button>
-                            <button class="btn btn-sm btn-primary me-3 edit-btn">Edit</button>
-                            <button class="btn btn-sm btn-danger delete-btn">Delete</button>
-                        </li>`;
-                            })
-                            .join("")}
-                           
+                                            ? "btn-secondary"
+                                            : "btn-success"
+                                    }
+                                    me-3 toggle-btn">Toggle</button>
+                                    <button class="btn btn-sm btn-primary me-3 edit-btn">Edit</button>
+                                    <button class="btn btn-sm btn-danger delete-btn">Delete</button>
+                                </li>`;
+                                })
+                                .join("")}                            
                         </ul>
                     </div>
                 </div>
             </div>
+            
+            <script src="js/axios.js"></script>
+            <script src="js/scripts.js"></script>
         </body>
     </html>
     `);

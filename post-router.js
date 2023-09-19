@@ -1,6 +1,7 @@
 import express from "express";
 
 import Task from "./task.js";
+import DB from "./db.js";
 
 const router = express.Router();
 
@@ -17,7 +18,57 @@ router.post("/add-task", (req, res) => {
             res.status(400).send(`<h1>${e.message}</h1>`);
         }
     } else {
-        res.status(400).send("<h1>invalid request</h1>");
+        res.status(400).send("<h1>Invalid request.</h1>");
+    }
+});
+
+router.post("/toggle-task", (req, res) => {
+    if (req.body.id) {
+        const task = Task.getTaskById(req.body.id);
+        if (task) {
+            task.completed = !task.completed;
+            task.save();
+            res.json(true);
+        } else {
+            res.status(404).json(404);
+        }
+    } else {
+        res.status(400).json(400);
+    }
+});
+
+router.post("/edit-task", (req, res) => {
+    if (req.body.id && req.body.title) {
+        const task = Task.getTaskById(req.body.id);
+        if (task) {
+            try {
+                task.title = req.body.title;
+                task.save();
+                res.json(true);
+            } catch (e) {
+                res.status(400).json(e.message);
+            }
+        } else {
+            res.status(404).json("Task not found.");
+        }
+    } else {
+        res.status(400).json("Invalid Request.");
+    }
+});
+
+router.post("/delete-task", (req, res) => {
+    if (req.body.id) {
+        try {
+            if (DB.deleteTask(req.body.id)) {
+                res.json(true);
+            } else {
+                res.status(404).json("Task not found.");
+            }
+        } catch (e) {
+            res.status(500).json("Server error.");
+        }
+    } else {
+        res.status(400).json("Invalid Request.");
     }
 });
 
