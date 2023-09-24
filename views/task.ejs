@@ -1,0 +1,17 @@
+<li class="list-group-item d-flex bg-light" data-id="<%= task.id %>">
+    <span class="flex-grow-1 d-flex align-items-center">
+        <label><%= task.title %></label>
+        <span class="badge 
+        <%= task.completed ? 'bg-success' : 'bg-secondary' %>
+        ms-auto me-3 user-select-none"
+            >
+            <%= task.completed ? 'Completed' : 'In progress' %>
+            </span
+        >
+    </span>
+    <button class="btn btn-sm 
+    <%= task.completed ? 'btn-secondary' : 'btn-success' %>
+    me-3 toggle-btn">Toggle</button>
+    <button class="btn btn-sm btn-primary me-3 edit-btn">Edit</button>
+    <button class="btn btn-sm btn-danger delete-btn">Delete</button>
+</li>

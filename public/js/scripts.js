@@ -21,10 +21,7 @@ list.addEventListener("click", async (event) => {
 
         if (answer && answer.length >= 3) {
             try {
-                const response = await axios.post("/edit-task", {
-                    id,
-                    title: answer,
-                });
+                const response = await axios.post("/edit-task", { id, title: answer });
                 if (response.data === true) {
                     location.reload();
                 } else {
@@ -41,7 +38,13 @@ list.addEventListener("click", async (event) => {
             try {
                 const response = await axios.post("/delete-task", { id });
                 if (response.data === true) {
+                    // location.reload();
                     target.parentElement.remove();
+                    if (!document.querySelectorAll("li").length) {
+                        const ul = document.querySelector("ul");
+                        ul.outerHTML =
+                            '<h2 class="text-center">There is not any task</h2>';
+                    }
                 } else {
                     alert(response.data);
                 }
