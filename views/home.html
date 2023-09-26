@@ -18,15 +18,16 @@
 
             <div class="row mb-4">
                 <div class="col">
-                    <form action="/add-task" method="post" class="p-2 rounded-3 border">
+                    <div class="p-2 rounded-3 border form">
                         <div class="input-group input-group-lg">
                             <input
                                 type="text"
                                 name="title"
                                 class="form-control shadow-none"
                                 placeholder="Enter a new title"
+                                id="my-input"
                             />
-                            <button class="btn btn-primary shadow-none" type="submit">
+                            <button class="btn btn-primary shadow-none" type="button" id="add-button">
                                 Add new task
                             </button>
                         </div>
@@ -41,21 +42,15 @@
                                 The task is completed.
                             </label>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
 
             <div class="row mb-4">
                 <div class="col">
-                    <% if(tasks.length) { %>
-                    <ul class="list-group lh-lg">
-                        <% for(let task of tasks) {%>
-                            <%- include('task' , {task}) %>
-                        <% } %>
+                    <ul class="list-group lh-lg d-none">
                     </ul>
-                    <% } else { %>
-                        <h2 class="text-center">There is not any task</h2>
-                    <% } %>
+                    <h2 class="text-center d-none">There is not any task</h2>
                 </div>
             </div>
         </div>

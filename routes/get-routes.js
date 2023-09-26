@@ -6,4 +6,6 @@ const router = express.Router();
 
 router.get("/", GetController.homeController);
 
+router.get("/get-all-tasks", GetController.getAllTasks);
+
 export default router;
